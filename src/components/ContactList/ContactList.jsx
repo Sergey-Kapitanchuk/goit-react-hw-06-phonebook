@@ -5,15 +5,23 @@ import { deleteContact } from "redux/phoneSlice";
 
 export const ContactList = () => {
     const dispatch = useDispatch();
-    const contacts = useSelector(state => state.contacts.items)
-
+    const { items, filter } = useSelector(state => state.contacts);
+    console.log("contact:", filter)
     const onDelete = id => {
         dispatch(deleteContact(id))
     };
 
+    const getVisibleContacts = () => {
+        const normalizedFil = filter.toLocaleLowerCase()
+        return items.filter(contact =>
+            contact.name.toLocaleLowerCase().includes(normalizedFil))
+    };
+
+    const filterContact = getVisibleContacts();
+
     return (
         <ul className={CSS.contact}>
-            {contacts.map(contact =>
+            {filterContact.map(contact =>
                 <li key={contact.id} className={CSS.contactList}><p>{contact.name}: {contact.number}</p>
                     <button type="button" onClick={() => onDelete(contact.id)} className={CSS.contactButton}>Delete</button>
                 </li>

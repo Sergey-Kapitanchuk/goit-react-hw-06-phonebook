@@ -4,8 +4,8 @@ import { nanoid } from 'nanoid/non-secure'
 
 const initialState = {
     contacts: {
+        filter: '',
         items: [],
-        filter: ''
     }
 };
 
@@ -30,16 +30,18 @@ const phoneSlice = createSlice({
             }
             state.contacts.items = [...state.contacts.items, contact];
         },
+
         filterContact(state, action) {
-            console.log(state.filter)
             state.filter = action.payload;
+            console.log("state:", state.filter)
         },
+
         deleteContact(state, action) {
             state.contacts.items = state.contacts.items.filter(item => item.id !== action.payload);
         },
     },
 });
 
-export const { createContact, filterContact, deleteContact } = phoneSlice.actions;
+export const { createContact, filterContact, deleteContact, getVisibleContacts } = phoneSlice.actions;
 
 export default phoneSlice.reducer;
