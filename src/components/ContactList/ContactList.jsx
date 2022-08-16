@@ -6,13 +6,14 @@ import { deleteContact } from "redux/phoneSlice";
 export const ContactList = () => {
     const dispatch = useDispatch();
     const { items, filter } = useSelector(state => state.contacts);
-    console.log("contact:", filter)
+
     const onDelete = id => {
         dispatch(deleteContact(id))
     };
 
     const getVisibleContacts = () => {
         const normalizedFil = filter.toLocaleLowerCase()
+        console.log("contact:", filter)
         return items.filter(contact =>
             contact.name.toLocaleLowerCase().includes(normalizedFil))
     };
