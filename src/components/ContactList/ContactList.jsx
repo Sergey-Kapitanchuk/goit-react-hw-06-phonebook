@@ -13,7 +13,7 @@ export const ContactList = () => {
 
     const getVisibleContacts = () => {
         const normalizedFil = filter.toLocaleLowerCase()
-        console.log("contact:", filter)
+        console.log("contact:", items)
         return items.filter(contact =>
             contact.name.toLocaleLowerCase().includes(normalizedFil))
     };

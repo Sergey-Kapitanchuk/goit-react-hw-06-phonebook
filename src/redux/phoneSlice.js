@@ -32,7 +32,7 @@ const phoneSlice = createSlice({
         },
 
         filterContact(state, action) {
-            state.filter = action.payload;
+            state.contacts.filter = action.payload;
             console.log("state:", state.filter)
         },
 
