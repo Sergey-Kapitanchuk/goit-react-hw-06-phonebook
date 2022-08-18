@@ -1,11 +1,15 @@
 import { useState } from "react";
 import CSS from "./Form.module.css"
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { createContact } from "redux/phoneSlice";
+import { nanoid } from 'nanoid/non-secure'
+import { toast } from "react-hot-toast";
+
 
 
 export function Form({ onSubmit }) {
   const dispatch = useDispatch();
+  const items = useSelector(el => el.contacts.items);
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
@@ -16,14 +20,28 @@ export function Form({ onSubmit }) {
       : setNumber(value);
   };
 
+  // const contactSubmit = e => {
+  //   
+  //   dispatch(createContact({ name, number }))
+
+  //   
+  // };
   const contactSubmit = e => {
     e.preventDefault();
-    dispatch(createContact({ name, number }))
+    const id = nanoid();
+    if (
+      items.some(
+        contact => contact.name.toLowerCase() === name.toLowerCase(),
+      )
+    ) {
+      toast.error(`${name} is already in contacts!`);
+      return;
+    }
+    dispatch(createContact({ name, number, id }))
 
     setName('');
     setNumber('');
   };
-
 
   return (
     <>

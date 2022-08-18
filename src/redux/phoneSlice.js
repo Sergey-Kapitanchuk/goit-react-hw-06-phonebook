@@ -1,6 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import toast from 'react-hot-toast';
-import { nanoid } from 'nanoid/non-secure'
 
 const initialState = {
     contacts: {
@@ -14,20 +12,12 @@ const phoneSlice = createSlice({
     initialState,
     reducers: {
         createContact(state, action) {
-            const id = nanoid();
             const contact = {
-                id,
+                id: action.payload.id,
                 name: action.payload.name,
                 number: action.payload.number,
             };
-            if (
-                state.contacts.items.some(
-                    el => el.name.toLowerCase() === contact.name.toLowerCase(),
-                )
-            ) {
-                toast.error(`${contact.name} is already in contacts!`);
-                return;
-            }
+
             state.contacts.items = [...state.contacts.items, contact];
         },
 
