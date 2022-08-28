@@ -20,15 +20,14 @@ export function Form({ onSubmit }) {
       : setNumber(value);
   };
 
-  // const contactSubmit = e => {
-  //   
-  //   dispatch(createContact({ name, number }))
-
-  //   
-  // };
   const contactSubmit = e => {
     e.preventDefault();
     const id = nanoid();
+    const contact = {
+      id,
+      name,
+      number
+    };
     if (
       items.some(
         contact => contact.name.toLowerCase() === name.toLowerCase(),
@@ -37,7 +36,7 @@ export function Form({ onSubmit }) {
       toast.error(`${name} is already in contacts!`);
       return;
     }
-    dispatch(createContact({ name, number, id }))
+    dispatch(createContact({ contact }))
 
     setName('');
     setNumber('');

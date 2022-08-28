@@ -12,11 +12,7 @@ const phoneSlice = createSlice({
     initialState,
     reducers: {
         createContact(state, action) {
-            const contact = {
-                id: action.payload.id,
-                name: action.payload.name,
-                number: action.payload.number,
-            };
+            const contact = action.payload.contact
 
             state.contacts.items = [...state.contacts.items, contact];
         },
